@@ -179,7 +179,3 @@ def ResNet50(num_classes=1000):
 
 def ResNet101(num_classes=1000):
     return ResNet(BottleneckBlock, [3,4,23,3],[256,512,1024,2048], num_classes)
-
-
-
-

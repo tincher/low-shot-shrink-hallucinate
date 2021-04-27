@@ -140,7 +140,7 @@ def parse_args():
     parser.add_argument('--checkpoint_dir', required=True, help='Directory for storing check points')
     parser.add_argument('--aux_loss_type', default='l2', type=str, help='l2 or sgm or batchsgm')
     parser.add_argument('--aux_loss_wt', default=0.1, type=float, help='loss_wt')
-    parser.add_argument('--num_classes',default=1000, type=float, help='num classes')
+    parser.add_argument('--num_classes',default=1000, type=int, help='num classes')
     parser.add_argument('--dampening', default=0, type=float, help='dampening')
     parser.add_argument('--warmup_epochs', default=0, type=int, help='iters for warmup')
     parser.add_argument('--warmup_lr', default=0.01, type=int, help='lr for warmup')
