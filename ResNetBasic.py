@@ -153,6 +153,7 @@ class ResNet(nn.Module):
         self.trunk = nn.Sequential(*trunk)
         self.final_feat_dim = indim
         if not only_trunk:
+            print(indim, num_classes)
             self.classifier = nn.Linear(indim, num_classes)
             self.classifier.bias.data.fill_(0)
 
