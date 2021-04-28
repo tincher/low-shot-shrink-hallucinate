@@ -73,5 +73,7 @@ class GenericLoss:
             classifier_weight = model.module.get_classifier_weight()
             aux_loss = self.aux_loss_fn(feats, scores, classifier_weight, y_var)
         print(y_var)
+        print(scores.shape)
+        print(scores)
         orig_loss = self.cross_entropy_loss(scores, y_var)
         return orig_loss + self.aux_loss_wt * aux_loss
