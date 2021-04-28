@@ -13,10 +13,10 @@ import torchvision.transforms as transforms
 import os
 identity = lambda x:x
 class MetaDataset:
-    def __init__(self, rootdir='/mnt/fair/imagenet-256', meta='/home/bharathh/imagenet_meta/train.json', transform=transforms.ToTensor(), target_transform=identity):
+    def __init__(self, rootdir='/mnt/fair/imagenet-256', meta='/home/user59/bachelor/neural_nets/augmentation/low-shot-shrink-hallucinate/train.json', transform=transforms.ToTensor(), target_transform=identity):
         with open(meta, 'r') as f:
             self.meta = json.load(f)
-        self.rootdir=rootdir
+        self.rootdir='/home/user59/data/class_sorted_grayscale'
         self.transform = transform
         self.target_transform = target_transform
 
@@ -30,11 +30,3 @@ class MetaDataset:
 
     def __len__(self):
         return len(self.meta['image_names'])
-
-
-
-
-
-
-
-

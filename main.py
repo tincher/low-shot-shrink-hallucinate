@@ -9,7 +9,6 @@
 import ResNetFeat
 import torch
 from torch.autograd import Variable
-import myMetaDataset
 import data
 import torch.optim
 import time
