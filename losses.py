@@ -16,7 +16,7 @@ def l2_loss(feat):
 def get_one_hot(labels, num_classes):
 
     one_hot = Variable(torch.range(0, num_classes-1)).unsqueeze(0).expand(labels.size(0), num_classes)
-    if (type(labels.data) is torch.cuda.FloatTensor) or (type(labels.data) is torch.cuda.LongTensor):
+    if labels.is_cuda:
         one_hot = one_hot.cuda()
 
 
@@ -74,6 +74,3 @@ class GenericLoss:
             aux_loss = self.aux_loss_fn(feats, scores, classifier_weight, y_var)
         orig_loss = self.cross_entropy_loss(scores, y_var)
         return orig_loss + self.aux_loss_wt * aux_loss
-
-
-
