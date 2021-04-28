@@ -68,7 +68,7 @@ if __name__ == '__main__':
     model = get_model(params.model, params.num_classes)
     model = model.cuda()
     model = torch.nn.DataParallel(model)
-    from torch.utils.serialization import load_lua
+    # from torch.utils.serialization import load_lua
     #tmp = load_lua('/home/bharathh/local/cachedir/from_lua.t7')
     tmp = torch.load(params.modelfile)
     if ('module.classifier.bias' not in model.state_dict().keys()) and ('module.classifier.bias' in tmp['state'].keys()):
