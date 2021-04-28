@@ -31,7 +31,7 @@ class BatchSGMLoss(nn.Module):
     def forward(self,feats, scores, classifier_weight, labels):
         one_hot = get_one_hot(labels, self.num_classes)
         p = self.softmax(scores)
-        if type(scores.data) is torch.cuda.FloatTensor:
+        if scores.is_cuda:
             p = p.cuda()
 
 
@@ -48,9 +48,8 @@ class SGMLoss(nn.Module):
 
     def forward(self,feats, scores, classifier_weight, labels):
         one_hot = get_one_hot(labels, self.num_classes)
-        print(scores.shape)
         p = self.softmax(scores)
-        if type(scores.data) is torch.cuda.FloatTensor:
+        if scores.is_cuda:
             p = p.cuda()
         pereg_wt = (one_hot - p).pow(2).sum(1)
         sqrXnorm = feats.pow(2).sum(1)
@@ -73,5 +72,6 @@ class GenericLoss:
         else:
             classifier_weight = model.module.get_classifier_weight()
             aux_loss = self.aux_loss_fn(feats, scores, classifier_weight, y_var)
+        print(y_var)
         orig_loss = self.cross_entropy_loss(scores, y_var)
         return orig_loss + self.aux_loss_wt * aux_loss
