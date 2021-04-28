@@ -1,7 +1,7 @@
 dataset_type: 'MetaDataset'
 dataset_params:
   meta: 'base_classes_val_meta.json'
-  rootdir: '/data/source-data/emblematica_dataset_only_images/class_sorted_grayscale/' # Change this to ImageNet directory
+  rootdir: '/home/user59/data/class_sorted_grayscale/' # Change this to ImageNet directory
 transform_params:
   transform_list: ['Scale', 'CenterCrop', 'ToTensor', 'Normalize']
   image_size: 224
