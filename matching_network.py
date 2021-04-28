@@ -135,7 +135,7 @@ def train_matching_network(model, file_handle, base_classes, m=389, n=10, initlr
             for param_group in optimizer.param_groups:
                 param_group['lr'] = lr
 
-        total_loss = total_loss + loss.data[0]
+        total_loss = total_loss + loss.item()
         loss_count = loss_count + 1
 
         if (it+1)%1 == 0:

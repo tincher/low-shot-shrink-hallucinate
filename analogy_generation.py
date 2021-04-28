@@ -187,8 +187,8 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
         loss.backward()
         optimizer.step()
 
-        avg_loss_1 = avg_loss_1 + lossval_1.data[0]
-        avg_loss_2 = avg_loss_2 + lossval_2.data[0]
+        avg_loss_1 = avg_loss_1 + lossval_1.item()
+        avg_loss_2 = avg_loss_2 + lossval_2.item()
         count = count+1.0
 
 
@@ -241,7 +241,7 @@ def train_classifier(filehandle, base_classes, cachefile, networkfile, total_num
             loss_val.backward()
             optimizer.step()
             if i % 100 == 0:
-                print('Classifier training {:d}: {:f}'.format(i, loss_val.data[0]))
+                print('Classifier training {:d}: {:f}'.format(i, loss_val.item()))
         torch.save(model.state_dict(), cachefile)
 
     return model

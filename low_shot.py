@@ -105,7 +105,7 @@ def training_loop(lowshot_dataset, num_classes, params, batchsize=1000, maxiters
         loss.backward()
         optimizer.step()
         if (i%100==0):
-            print('{:d}: {:f}'.format(i, loss.data[0]))
+            print('{:d}: {:f}'.format(i, loss.item()))
 
     return model
 

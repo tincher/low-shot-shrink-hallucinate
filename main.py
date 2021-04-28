@@ -78,7 +78,7 @@ def main_training_loop(train_loader, val_loader, model, loss_fn, start_epoch, st
             optimizer.step()
             sgd_time = sgd_time + (time.time()-start_sgd_time)
 
-            avg_loss = avg_loss+loss.data[0]
+            avg_loss = avg_loss+loss.item()
 
             if i % params.print_freq==0:
                 print(optimizer.state_dict()['param_groups'][0]['lr'])
