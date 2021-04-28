@@ -15,7 +15,7 @@ def l2_loss(feat):
 
 def get_one_hot(labels, num_classes):
 
-    one_hot = Variable(torch.arange(0, num_classes-1)).unsqueeze(0).expand(labels.size(0), num_classes)
+    one_hot = Variable(torch.arange(0, num_classes)).unsqueeze(0).expand(labels.size(0), num_classes)
     if labels.is_cuda:
         one_hot = one_hot.cuda()
 
