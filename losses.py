@@ -15,7 +15,7 @@ def l2_loss(feat):
 
 def get_one_hot(labels, num_classes):
 
-    one_hot = Variable(torch.range(0, num_classes-1)).unsqueeze(0).expand(labels.size(0), num_classes)
+    one_hot = Variable(torch.arange(0, num_classes-1)).unsqueeze(0).expand(labels.size(0), num_classes)
     if labels.is_cuda:
         one_hot = one_hot.cuda()
 
@@ -48,6 +48,7 @@ class SGMLoss(nn.Module):
 
     def forward(self,feats, scores, classifier_weight, labels):
         one_hot = get_one_hot(labels, self.num_classes)
+        print(scores.shape)
         p = self.softmax(scores)
         if type(scores.data) is torch.cuda.FloatTensor:
             p = p.cuda()

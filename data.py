@@ -26,7 +26,7 @@ def parse_transform(transform_type, transform_params):
         method = additional_transforms.ImageJitter(transform_params['jitter_params'])
         return method
     method = getattr(transforms, transform_type)
-    if transform_type=='RandomSizedCrop' or transform_type=='CenterCrop':
+    if transform_type=='RandomResizedCrop' or transform_type=='CenterCrop':
         return method(transform_params['image_size'])
     elif transform_type=='Scale':
         return method(transform_params['scale'])
@@ -49,6 +49,3 @@ def get_data_loader(params):
     data_loader_params = params['data_loader_params']
     data_loader = torch.utils.data.DataLoader(dataset, **data_loader_params)
     return data_loader
-
-
-
