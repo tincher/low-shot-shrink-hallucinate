@@ -26,7 +26,7 @@ def get_one_hot(labels, num_classes):
 class BatchSGMLoss(nn.Module):
     def __init__(self, num_classes):
         super(BatchSGMLoss, self).__init__()
-        self.softmax = nn.Softmax()
+        self.softmax = nn.Softmax(dim=1)
         self.num_classes = num_classes
     def forward(self,feats, scores, classifier_weight, labels):
         one_hot = get_one_hot(labels, self.num_classes)
@@ -43,7 +43,7 @@ class BatchSGMLoss(nn.Module):
 class SGMLoss(nn.Module):
     def __init__(self, num_classes):
         super(SGMLoss, self).__init__()
-        self.softmax = nn.Softmax()
+        self.softmax = nn.Softmax(dim=1)
         self.num_classes = num_classes
 
     def forward(self,feats, scores, classifier_weight, labels):
