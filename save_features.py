@@ -29,6 +29,8 @@ def save_features(model, data_loader, outfile ):
         x = x.cuda()
         x_var = Variable(x)
         scores, feats = model(x_var)
+        print('featsshape' ,feats.shape)
+        print('scoresshape' ,scores.shape)
         if all_feats is None:
             all_feats = f.create_dataset('all_feats', (max_count, feats.size(1)), dtype='f')
         all_feats[count:count+feats.size(0),:] = feats.data.cpu().numpy()
