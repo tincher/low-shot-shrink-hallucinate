@@ -45,6 +45,10 @@ class LowShotDataset:
 
 
         # novel class examples
+        print(len(novel_idx))
+        print(len(self.all_feats_dset))
+        print(novel_idx)
+        print(self.all_feats_dset)
         novel_feats = self.all_feats_dset[novel_idx,:]
         novel_labels = self.all_labels[novel_idx]
 
@@ -204,5 +208,3 @@ if __name__ == '__main__':
                                     params.lr, params.wd, params.experimentid, params.lowshotn, params.max_per_label))
     with open(outpath, 'w') as f:
         json.dump(dict(lr=params.lr,wd=params.wd, expid=params.experimentid, lowshotn=params.lowshotn, accs=accs.tolist()),f)
-
-
