@@ -74,7 +74,6 @@ python3 ./train_analogy_generator.py \
   --initlr 1 \
   --networkfile checkpoints/ResNet10_sgm/89.tar \
   --numclasses 51 
-
 echo "Train analogy-based generator done"
 
 #

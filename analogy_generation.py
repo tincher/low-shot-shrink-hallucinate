@@ -209,7 +209,7 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
     return dict(model_state=model.state_dict(), concatenated_centroids=torch.Tensor(concatenated_centroids),
             num_base_classes=len(centroids), num_clusters_per_class=num_clusters_per_class)
 
-def train_classifier(filehandle, base_classes, cachefile, networkfile, total_num_classes = 1000, lr=0.1, wd=0.0001, momentum=0.9, batchsize=1000, niter=10000):
+def train_classifier(filehandle, base_classes, cachefile, networkfile, total_num_classes, lr=0.1, wd=0.0001, momentum=0.9, batchsize=1000, niter=10000):
     # either use pre-existing classifier or train one
     all_labels = filehandle['all_labels'][...]
     all_labels = all_labels.astype(int)
@@ -250,10 +250,10 @@ def train_classifier(filehandle, base_classes, cachefile, networkfile, total_num
 
 
 
-def train_analogy_regressor_main(trainfile, base_classes, cachedir, networkfile, initlr=0.1):
+def train_analogy_regressor_main(trainfile, base_classes, cachedir, networkfile, numclasses=1000, initlr=0.1):
 
     with h5py.File(trainfile, 'r') as f:
-        classification_model = train_classifier(f, base_classes, os.path.join(cachedir, 'classifier.pkl'), networkfile)
+        classification_model = train_classifier(f, base_classes, os.path.join(cachedir, 'classifier.pkl'), networkfile, total_num_classes=numclasses)
         centroids = cluster_feats(f, base_classes, os.path.join(cachedir, 'cluster.pkl'))
     if not os.path.isfile(os.path.join(cachedir, 'analogies.npy')):
         analogies, analogy_scores = mine_analogies(centroids)
@@ -321,12 +321,3 @@ def init_generator(generator_file):
     model = model.cuda()
     G['model'] =model
     return G
-
-
-
-
-
-
-
-
-
