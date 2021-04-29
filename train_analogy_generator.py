@@ -28,8 +28,8 @@ if __name__ == '__main__':
     with open(params.lowshotmeta, 'r') as f:
         lowshotmeta = json.load(f)
 
-    base_classes = lowshotmeta['base_classes_1']
-    base_classes.extend(lowshotmeta['base_classes_2'])
+    base_classes = lowshotmeta['base_classes_2']
+    # base_classes.extend(lowshotmeta['base_classes_2'])
     base_classes = sorted(base_classes)
     outdir = os.path.join(params.outdir, os.path.basename(os.path.dirname(params.trainfile)))
     if not os.path.isdir(outdir):
@@ -42,5 +42,3 @@ if __name__ == '__main__':
     generator = analogy_generation.train_analogy_regressor_main(params.trainfile, base_classes, cachedir, params.networkfile, initlr=params.initlr)
 
     torch.save(generator,os.path.join(outdir, 'generator.tar'))
-
-
