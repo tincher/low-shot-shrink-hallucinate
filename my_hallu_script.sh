@@ -38,31 +38,31 @@ echo "main done"
 
 echo "save done"
 
-# Low-shot benchmark without generation
-for i in {1..5}
-do
-  for j in 1 2 5 10 20
-  do
-    python3 ./low_shot.py --lowshotmeta label_idx.json \
-      --experimentpath experiment_cfgs/splitfile_{:d}.json \
-      --experimentid  $i --lowshotn $j \
-      --trainfile features/ResNet10_sgm/train.hdf5 \
-      --testfile features/ResNet10_sgm/val.hdf5 \
-      --outdir results \
-      --lr 1 --wd 0.001 \
-      --testsetup 1 \
-      --numclasses 51
-  done
-done
-
-
-# parse results
-echo "ResNet10 SGM results (no generation)"
-python3 ./parse_results.py --resultsdir results \
-  --repr ResNet10_sgm \
-  --lr 1 --wd 0.001
-
-echo "ResNet10 SGM results (no generation) parsing done"
+# # Low-shot benchmark without generation
+# for i in {1..5}
+# do
+#   for j in 1 2 5 10 20
+#   do
+#     python3 ./low_shot.py --lowshotmeta label_idx.json \
+#       --experimentpath experiment_cfgs/splitfile_{:d}.json \
+#       --experimentid  $i --lowshotn $j \
+#       --trainfile features/ResNet10_sgm/train.hdf5 \
+#       --testfile features/ResNet10_sgm/val.hdf5 \
+#       --outdir results \
+#       --lr 1 --wd 0.001 \
+#       --testsetup 1 \
+#       --numclasses 51
+#   done
+# done
+#
+#
+# # parse results
+# echo "ResNet10 SGM results (no generation)"
+# python3 ./parse_results.py --resultsdir results \
+#   --repr ResNet10_sgm \
+#   --lr 1 --wd 0.001
+#
+# echo "ResNet10 SGM results (no generation) parsing done"
 
 
 # Train analogy-based generator
@@ -77,31 +77,31 @@ python3 ./train_analogy_generator.py \
 
 echo "Train analogy-based generator done"
 
-
-# Low-shot benchmark _with_ generation
-for i in {1..5}
-do
-  for j in 1 2 5 10 20
-  do
-    python3 ./low_shot.py --lowshotmeta label_idx.json \
-      --experimentpath experiment_cfgs/splitfile_{:d}.json \
-      --experimentid  $i --lowshotn $j \
-      --trainfile features/ResNet10_sgm/train.hdf5 \
-      --testfile features/ResNet10_sgm/val.hdf5 \
-      --outdir results \
-      --lr 1 --wd 0.001 \
-      --testsetup 1 \
-      --max_per_label 5 \
-      --generator_name analogies \
-      --generator_file generation/ResNet10_sgm/generator.tar
-  done
-done
-
-# parse results
-echo "ResNet10 SGM results (with generation)"
-python3 ./parse_results.py --resultsdir results \
-  --repr ResNet10_sgm \
-  --lr 1 --wd 0.001 \
-  --max_per_label 5
-
-echo "ResNet10 SGM results (with generation)"
+#
+# # Low-shot benchmark _with_ generation
+# for i in {1..5}
+# do
+#   for j in 1 2 5 10 20
+#   do
+#     python3 ./low_shot.py --lowshotmeta label_idx.json \
+#       --experimentpath experiment_cfgs/splitfile_{:d}.json \
+#       --experimentid  $i --lowshotn $j \
+#       --trainfile features/ResNet10_sgm/train.hdf5 \
+#       --testfile features/ResNet10_sgm/val.hdf5 \
+#       --outdir results \
+#       --lr 1 --wd 0.001 \
+#       --testsetup 1 \
+#       --max_per_label 5 \
+#       --generator_name analogies \
+#       --generator_file generation/ResNet10_sgm/generator.tar
+#   done
+# done
+#
+# # parse results
+# echo "ResNet10 SGM results (with generation)"
+# python3 ./parse_results.py --resultsdir results \
+#   --repr ResNet10_sgm \
+#   --lr 1 --wd 0.001 \
+#   --max_per_label 5
+#
+# echo "ResNet10 SGM results (with generation)"

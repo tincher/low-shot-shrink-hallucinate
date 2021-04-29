@@ -177,6 +177,7 @@ if __name__ == '__main__':
 
     with open(params.experimentpath.format(params.experimentid),'r') as f:
         exp = json.load(f)
+    print(exp)
     novel_idx = np.array(exp)[:,:params.lowshotn]
     if params.testsetup:
         novel_classes = lowshotmeta['novel_classes_2']
@@ -185,10 +186,7 @@ if __name__ == '__main__':
         novel_classes = lowshotmeta['novel_classes_1']
         base_classes = lowshotmeta['base_classes_1']
 
-    print(novel_classes)
-    print('pre', novel_idx)
     novel_idx = np.sort(novel_idx[novel_classes,:].reshape(-1))
-    print('post', novel_idx)
 
     generator=None
     generator_fn=None
