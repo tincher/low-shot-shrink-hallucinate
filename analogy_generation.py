@@ -177,12 +177,12 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
 
         Bhat = model(A,C,D)
 
-        print(len(Bhat), B)
+        print(len(Bhat[0]), B)
         lossval_2 = loss_2(Bhat, B) # simple mean squared error loss
 
         # classification loss
         predicted_classprobs = trained_classifier(Bhat)
-        print(len(predicted_classprobs), Y)
+        print(len(predicted_classprobs[0]), Y)
         lossval_1 = loss_1(predicted_classprobs, Y)
         loss = lossval_1 + wt * lossval_2
 
