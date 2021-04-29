@@ -20,7 +20,7 @@ python3 ./main.py --model ResNet10 \
   --checkpoint_dir checkpoints/ResNet10_sgm \
   --num_classes 51
 
-
+echo "main done"
 # Next save features
 mkdir -p features/ResNet10_sgm
 python3 ./save_features.py \
@@ -35,6 +35,8 @@ python3 ./save_features.py \
   --modelfile checkpoints/ResNet10_sgm/89.tar \
   --model ResNet10 \
   --num_classes 51
+
+echo "save done"
 
 # Low-shot benchmark without generation
 for i in {1..5}
@@ -52,11 +54,14 @@ do
   done
 done
 
+
 # parse results
 echo "ResNet10 SGM results (no generation)"
 python3 ./parse_results.py --resultsdir results \
   --repr ResNet10_sgm \
   --lr 1 --wd 0.001
+
+echo "ResNet10 SGM results (no generation) parsing done"
 
 
 # Train analogy-based generator
@@ -69,6 +74,7 @@ python3 ./train_analogy_generator.py \
   --networkfile checkpoints/ResNet10_sgm/89.tar \
   --numclasses 51
 
+echo "Train analogy-based generator done"
 
 
 # Low-shot benchmark _with_ generation
@@ -97,3 +103,4 @@ python ./parse_results.py --resultsdir results \
   --lr 1 --wd 0.001 \
   --max_per_label 5
 
+echo "ResNet10 SGM results (with generation)"
