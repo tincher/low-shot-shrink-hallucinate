@@ -50,7 +50,8 @@ do
       --testfile features/ResNet10_sgm/val.hdf5 \
       --outdir results \
       --lr 1 --wd 0.001 \
-      --testsetup 1
+      --testsetup 1 \
+      --numclasses 51
   done
 done
 
