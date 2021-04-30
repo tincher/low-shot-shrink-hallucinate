@@ -182,7 +182,6 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
         # classification loss
         predicted_classprobs = trained_classifier(Bhat)
 
-        print(len(predicted_classprobs[0]), Y)
         lossval_1 = loss_1(predicted_classprobs, Y)
         loss = lossval_1 + wt * lossval_2
 
