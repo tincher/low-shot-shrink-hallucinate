@@ -293,8 +293,9 @@ if __name__ == '__main__':
         test_f.close()
 
     else:
-        base_classes = lowshotmeta['base_classes_1']
-        base_classes.extend(lowshotmeta['base_classes_2'])
+        base_classes = lowshotmeta['base_classes_2']
+        # base_classes = lowshotmeta['base_classes_1']
+        # base_classes.extend(lowshotmeta['base_classes_2'])
 
         train_f = h5py.File(params.trainfile,'r')
 
@@ -304,6 +305,3 @@ if __name__ == '__main__':
 
         model = train_matching_network(model, train_f, base_classes)
         torch.save(model.state_dict(), params.modelfile)
-
-
-
