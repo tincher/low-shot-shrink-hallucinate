@@ -18,7 +18,7 @@ python3 ./main.py --model ResNet10 \
   --print_freq 10 --save_freq 10 \
   --aux_loss_wt 0.02 --aux_loss_type sgm \
   --checkpoint_dir checkpoints/ResNet10_sgm \
-  --num_classes 51
+  --num_classes 56
 
 echo "main done"
 # Next save features
@@ -28,13 +28,13 @@ python3 ./save_features.py \
   --outfile features/ResNet10_sgm/train.hdf5 \
   --modelfile checkpoints/ResNet10_sgm/89.tar \
   --model ResNet10 \
-  --num_classes 51
+  --num_classes 56
 python3 ./save_features.py \
   --cfg val_save_data.yaml \
   --outfile features/ResNet10_sgm/val.hdf5 \
   --modelfile checkpoints/ResNet10_sgm/89.tar \
   --model ResNet10 \
-  --num_classes 51
+  --num_classes 56
 
 echo "save done"
 
@@ -51,7 +51,7 @@ echo "save done"
 #       --outdir results \
 #       --lr 1 --wd 0.001 \
 #       --testsetup 1 \
-#       --numclasses 51
+#       --numclasses 56
 #   done
 # done
 #
@@ -73,7 +73,7 @@ python3 ./train_analogy_generator.py \
   --outdir generation \
   --initlr 1 \
   --networkfile checkpoints/ResNet10_sgm/89.tar \
-  --numclasses 51
+  --numclasses 56
 echo "Train analogy-based generator done"
 
 #
