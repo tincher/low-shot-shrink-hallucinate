@@ -169,9 +169,9 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
         B = concatenated_centroids[to_train[:,1]]
         C = concatenated_centroids[to_train[:,2]]
         D = concatenated_centroids[to_train[:,3]]
+        print(centroid_labels)
+        print(to_train)
         Y = centroid_labels[to_train[:,1]]
-        # print(centroid_labels)
-        # print(to_train)
 
         A = Variable(torch.Tensor(A)).cuda()
         B = Variable(torch.Tensor(B)).cuda()
