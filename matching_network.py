@@ -59,7 +59,7 @@ class MatchingNetwork(nn.Module):
         out_G = out_G.squeeze(0)
         G = S + out_G[:,:S.size(1)] + out_G[:,S.size(1):]
 
-        G_norm = G.pow(2).sum(1).pow(0.5).expand(G.size)
+        G_norm = G.pow(2).sum(1).pow(0.5).expand(G.size())
         G_normalized = G.div(G_norm + 0.00001)
         return G, G_normalized
 
