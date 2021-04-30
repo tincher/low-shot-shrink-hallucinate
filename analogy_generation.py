@@ -168,6 +168,8 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
         C = concatenated_centroids[to_train[:,2]]
         D = concatenated_centroids[to_train[:,3]]
         Y = centroid_labels[to_train[:,1]]
+        print(centroid_labels)
+        print(to_train)
 
         A = Variable(torch.Tensor(A)).cuda()
         B = Variable(torch.Tensor(B)).cuda()
@@ -177,11 +179,11 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
 
         Bhat = model(A,C,D)
 
-        # print(len(Bhat[0]), B)
         lossval_2 = loss_2(Bhat, B) # simple mean squared error loss
 
         # classification loss
         predicted_classprobs = trained_classifier(Bhat)
+
         print(len(predicted_classprobs[0]), Y)
         lossval_1 = loss_1(predicted_classprobs, Y)
         loss = lossval_1 + wt * lossval_2
