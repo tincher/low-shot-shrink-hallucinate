@@ -11,30 +11,30 @@
 
 
 # First train representation
-# mkdir -p checkpoints/ResNet10_sgm
-# python3 ./main.py --model ResNet10 \
-#   --traincfg base_classes_train_template.yaml \
-#   --valcfg base_classes_val_template.yaml \
-#   --print_freq 10 --save_freq 10 \
-#   --aux_loss_wt 0.02 --aux_loss_type sgm \
-#   --checkpoint_dir checkpoints/ResNet10_sgm \
-#   --num_classes 51
+mkdir -p checkpoints/ResNet10_sgm
+python3 ./main.py --model ResNet10 \
+  --traincfg base_classes_train_template.yaml \
+  --valcfg base_classes_val_template.yaml \
+  --print_freq 10 --save_freq 10 \
+  --aux_loss_wt 0.02 --aux_loss_type sgm \
+  --checkpoint_dir checkpoints/ResNet10_sgm \
+  --num_classes 51
 
 echo "main done"
 # Next save features
-# mkdir -p features/ResNet10_sgm
-# python3 ./save_features.py \
-#   --cfg train_save_data.yaml \
-#   --outfile features/ResNet10_sgm/train.hdf5 \
-#   --modelfile checkpoints/ResNet10_sgm/89.tar \
-#   --model ResNet10 \
-#   --num_classes 51
-# python3 ./save_features.py \
-#   --cfg val_save_data.yaml \
-#   --outfile features/ResNet10_sgm/val.hdf5 \
-#   --modelfile checkpoints/ResNet10_sgm/89.tar \
-#   --model ResNet10 \
-#   --num_classes 51
+mkdir -p features/ResNet10_sgm
+python3 ./save_features.py \
+  --cfg train_save_data.yaml \
+  --outfile features/ResNet10_sgm/train.hdf5 \
+  --modelfile checkpoints/ResNet10_sgm/89.tar \
+  --model ResNet10 \
+  --num_classes 51
+python3 ./save_features.py \
+  --cfg val_save_data.yaml \
+  --outfile features/ResNet10_sgm/val.hdf5 \
+  --modelfile checkpoints/ResNet10_sgm/89.tar \
+  --model ResNet10 \
+  --num_classes 51
 
 echo "save done"
 
@@ -73,7 +73,7 @@ python3 ./train_analogy_generator.py \
   --outdir generation \
   --initlr 1 \
   --networkfile checkpoints/ResNet10_sgm/89.tar \
-  --numclasses 51 
+  --numclasses 51
 echo "Train analogy-based generator done"
 
 #

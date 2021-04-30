@@ -180,8 +180,6 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
         Y = Variable(torch.LongTensor(Y.astype(int))).cuda()
 
         Bhat = model(A,C,D)
-        print(Bhat.shape)
-        print(B.shape)
         lossval_2 = loss_2(Bhat, B) # simple mean squared error loss
 
         # classification loss
@@ -205,7 +203,7 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
 
         if (i+1) % step_after == 0:
             lr = lr / 10.0
-            print(lr)
+            # print(lr)
             for param_group in optimizer.param_groups:
                 param_group['lr'] = lr
 
