@@ -249,6 +249,7 @@ def parse_args():
     parser.add_argument('--modelfile', required=True, type=str)
     parser.add_argument('--K', default=5, type = int)
     parser.add_argument('--outdir', type=str)
+    parser.add_argument('--m', default=389, type=int)
     return parser.parse_args()
 
 
@@ -303,5 +304,5 @@ if __name__ == '__main__':
         model = MatchingNetwork(featdim, params.K)
         model = model.cuda()
 
-        model = train_matching_network(model, train_f, base_classes)
+        model = train_matching_network(model, train_f, base_classes, m=int(params.m))
         torch.save(model.state_dict(), params.modelfile)
