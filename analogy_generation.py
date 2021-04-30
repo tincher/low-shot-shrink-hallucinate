@@ -150,7 +150,6 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
 
     num_clusters_per_class = centroids[0].shape[0]
     centroid_labels = (np.array(base_classes).reshape((-1,1)) * np.ones((1, num_clusters_per_class))).reshape(-1)
-    # print(base_classes)
 
     concatenated_centroids = np.concatenate(centroids, axis=0)
 
@@ -170,6 +169,7 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
         C = concatenated_centroids[to_train[:,2]]
         D = concatenated_centroids[to_train[:,3]]
         print(centroid_labels)
+        print(len(centroid_labels))
         print(to_train)
         Y = centroid_labels[to_train[:,1]]
 
