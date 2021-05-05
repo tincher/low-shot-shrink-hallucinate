@@ -212,6 +212,8 @@ def run_test(model, G, G_norm, Y, test_file_handle, base_classes, novel_classes,
     all_labels = test_file_handle['all_labels'][:count]
     top1 = None
     top5 = None
+    results = []
+    file_ = open('./matching_results', 'w+')
     for i in range(0, count, batchsize):
         stop = min(i+batchsize, count)
         F = all_feats[range(i,stop)]
@@ -219,10 +221,12 @@ def run_test(model, G, G_norm, Y, test_file_handle, base_classes, novel_classes,
         L = all_labels[i:stop]
 
         scores = model.get_logprobs(F, G, G_norm, Y)
+        resuls.append(scores)
         top1_this, top5_this = perelement_accuracy(scores.data, L)
 
         top1 = top1_this if top1 is None else np.concatenate((top1, top1_this))
         top5 = top5_this if top5 is None else np.concatenate((top5, top5_this))
+    file_.write(str(results))
 
     is_novel = np.in1d(all_labels, novel_classes)
     is_base = np.in1d(all_labels, base_classes)
@@ -233,7 +237,7 @@ def run_test(model, G, G_norm, Y, test_file_handle, base_classes, novel_classes,
     top5_novel = np.mean(top5[is_novel])
     top5_base = np.mean(top5[is_base])
     top5_all = np.mean(top5[is_either])
-    return np.array([top1_novel, top5_novel, top1_base, top5_base, top1_all, top5_all])
+    return np.array([top1_novel, top5_novel, top1_base, top5_base, top1_all, top5_all]), results
 
 
 
@@ -254,12 +258,10 @@ def parse_args():
     return parser.parse_args()
 
 
-if __name__ == '__main__':
-    params = parse_args()
+def main(params):
+
     with open(params.lowshotmeta, 'r') as f:
         lowshotmeta = json.load(f)
-
-
 
     if params.test:
         with open(params.experimentpath.format(params.experimentid),'r') as f:
@@ -285,7 +287,7 @@ if __name__ == '__main__':
 
 
         G, G_norm, Y = encode_lowshot_trainset(model, base_classes, train_f, novel_idx, params.lowshotn)
-        accs = run_test(model, G, G_norm, Y, test_f, base_classes, novel_classes)
+        accs, scores = run_test(model, G, G_norm, Y, test_f, base_classes, novel_classes)
         modelrootdir = os.path.basename(os.path.dirname(params.trainfile))
         outpath = os.path.join(params.outdir, 'MN_' + modelrootdir+'_expid_{:d}_lowshotn_{:d}.json'.format(
                                     params.experimentid, params.lowshotn))
@@ -293,6 +295,8 @@ if __name__ == '__main__':
             json.dump(dict(expid=params.experimentid, lowshotn=params.lowshotn, accs=accs.tolist()),f)
         train_f.close()
         test_f.close()
+
+        return scores
 
     else:
         base_classes = lowshotmeta['base_classes_2']
@@ -307,3 +311,7 @@ if __name__ == '__main__':
 
         model = train_matching_network(model, train_f, base_classes, m=int(params.m))
         torch.save(model.state_dict(), params.modelfile)
+
+if __name__ == '__main__':
+    params = parse_args()
+    main(params)

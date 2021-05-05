@@ -127,14 +127,18 @@ def eval_loop(data_loader, model, base_classes, novel_classes):
     top1 = None
     top5 = None
     all_labels = None
+
+    results = []
+    file_ = open('./hallucinate_result', 'w+')
     for i, (x,y) in enumerate(data_loader):
         x = Variable(x.cuda())
         scores = model(x)
+        results.append(scores)
         top1_this, top5_this = perelement_accuracy(scores.data, y)
         top1 = top1_this if top1 is None else np.concatenate((top1, top1_this))
         top5 = top5_this if top5 is None else np.concatenate((top5, top5_this))
         all_labels = y.numpy() if all_labels is None else np.concatenate((all_labels, y.numpy()))
-
+    file_.write(str(results))
     is_novel = np.in1d(all_labels, novel_classes)
     is_base = np.in1d(all_labels, base_classes)
     is_either = is_novel | is_base
@@ -144,7 +148,7 @@ def eval_loop(data_loader, model, base_classes, novel_classes):
     top5_novel = np.mean(top5[is_novel])
     top5_base = np.mean(top5[is_base])
     top5_all = np.mean(top5[is_either])
-    return np.array([top1_novel, top5_novel, top1_base, top5_base, top1_all, top5_all])
+    return np.array([top1_novel, top5_novel, top1_base, top5_base, top1_all, top5_all]), results
 
 
 def parse_args():
@@ -169,8 +173,7 @@ def parse_args():
 
     return parser.parse_args()
 
-if __name__ == '__main__':
-    params = parse_args()
+def main(params)
     with open(params.lowshotmeta, 'r') as f:
         lowshotmeta = json.load(f)
     accs = np.zeros(6)
@@ -178,6 +181,7 @@ if __name__ == '__main__':
     with open(params.experimentpath.format(params.experimentid),'r') as f:
         exp = json.load(f)
     print(exp)
+
     novel_idx = np.array(exp)[:,:params.lowshotn]
     if params.testsetup:
         novel_classes = lowshotmeta['novel_classes_2']
@@ -202,10 +206,16 @@ if __name__ == '__main__':
     print('trained')
     with h5py.File(params.testfile, 'r') as f:
         test_loader = get_test_loader(f)
-        accs = eval_loop(test_loader, model, base_classes, novel_classes)
+        accs, results = eval_loop(test_loader, model, base_classes, novel_classes)
 
     modelrootdir = os.path.basename(os.path.dirname(params.trainfile))
     outpath = os.path.join(params.outdir, modelrootdir+'_lr_{:.3f}_wd_{:.3f}_expid_{:d}_lowshotn_{:d}_maxgen_{:d}.json'.format(
                                     params.lr, params.wd, params.experimentid, params.lowshotn, params.max_per_label))
     with open(outpath, 'w') as f:
         json.dump(dict(lr=params.lr,wd=params.wd, expid=params.experimentid, lowshotn=params.lowshotn, accs=accs.tolist()),f)
+
+    return results
+
+if __name__ == '__main__':
+    params = parse_args()
+    main(params)
