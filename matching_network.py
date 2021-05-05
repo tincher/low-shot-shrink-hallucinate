@@ -213,7 +213,7 @@ def run_test(model, G, G_norm, Y, test_file_handle, base_classes, novel_classes,
     top1 = None
     top5 = None
     results = []
-    file_ = open('./matching_results', 'w+')
+    file_ = open('./matching_results.txt', 'w+')
     for i in range(0, count, batchsize):
         stop = min(i+batchsize, count)
         F = all_feats[range(i,stop)]

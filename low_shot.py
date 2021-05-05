@@ -129,7 +129,7 @@ def eval_loop(data_loader, model, base_classes, novel_classes):
     all_labels = None
 
     results = []
-    file_ = open('./hallucinate_result', 'w+')
+    file_ = open('./hallucinate_result.txt', 'w+')
     for i, (x,y) in enumerate(data_loader):
         x = Variable(x.cuda())
         scores = model(x)
@@ -173,7 +173,7 @@ def parse_args():
 
     return parser.parse_args()
 
-def main(params)
+def main(params):
     with open(params.lowshotmeta, 'r') as f:
         lowshotmeta = json.load(f)
     accs = np.zeros(6)
