@@ -19,7 +19,7 @@
 #   --aux_loss_wt 0.02 --aux_loss_type sgm \
 #   --checkpoint_dir checkpoints/ResNet10_sgm \
 #   --num_classes 56
-#
+
 # echo "main done"
 
 # # Next save features
