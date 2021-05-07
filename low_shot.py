@@ -185,7 +185,7 @@ def main(params):
 
     novel_idx = np.array(exp)[:,:params.lowshotn]
     with open('./exp.txt', 'w+') as f_:
-        f.write(str(novel_idx))
+        f_.write(str(novel_idx))
     if params.testsetup:
         novel_classes = lowshotmeta['novel_classes_2']
         base_classes = lowshotmeta['base_classes_2']
