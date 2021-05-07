@@ -181,7 +181,7 @@ def main(params):
     with open(params.experimentpath.format(params.experimentid),'r') as f:
         exp = json.load(f)
     with open('./exp.txt', 'w+') as f_:
-        f.write(str(exp))
+        f_.write(str(exp))
 
     novel_idx = np.array(exp)[:,:params.lowshotn]
     with open('./exp.txt', 'w+') as f_:
