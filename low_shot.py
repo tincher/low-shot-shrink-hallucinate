@@ -180,15 +180,19 @@ def main(params):
 
     with open(params.experimentpath.format(params.experimentid),'r') as f:
         exp = json.load(f)
-    print(exp)
+    with open('./exp.txt', 'w+') as f_:
+        f.write(str(exp))
 
     novel_idx = np.array(exp)[:,:params.lowshotn]
+    with open('./exp.txt', 'w+') as f_:
+        f.write(str(novel_idx))
     if params.testsetup:
         novel_classes = lowshotmeta['novel_classes_2']
         base_classes = lowshotmeta['base_classes_2']
     else:
         novel_classes = lowshotmeta['novel_classes_1']
         base_classes = lowshotmeta['base_classes_1']
+
 
     novel_idx = np.sort(novel_idx[novel_classes,:].reshape(-1))
 

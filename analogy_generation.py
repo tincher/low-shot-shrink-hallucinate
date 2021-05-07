@@ -255,7 +255,7 @@ def train_analogy_regressor_main(trainfile, base_classes, cachedir, networkfile,
 
     with h5py.File(trainfile, 'r') as f:
         classification_model = train_classifier(f, base_classes, os.path.join(cachedir, 'classifier.pkl'), networkfile, total_num_classes=numclasses)
-        centroids = cluster_feats(f, base_classes, os.path.join(cachedir, 'cluster.pkl'))
+        centroids = cluster_feats(f, base_classes, os.path.join(cachedir, 'cluster.pkl'), 10)
     if not os.path.isfile(os.path.join(cachedir, 'analogies.npy')):
         analogies, analogy_scores = mine_analogies(centroids)
         np.save(os.path.join(cachedir, 'analogies.npy'), analogies.astype(int))
