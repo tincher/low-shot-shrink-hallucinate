@@ -5,4 +5,4 @@ python3 ./main.py --model ResNet10 \
   --print_freq 10 --save_freq 10 \
   --aux_loss_wt 0.02 --aux_loss_type sgm \
   --checkpoint_dir checkpoints/ResNet10_sgm \
-  --num_classes 56
+  --num_classes 89
