@@ -213,7 +213,7 @@ def main(params):
     modelrootdir = os.path.basename(os.path.dirname(params.trainfile))
     outpath = os.path.join(params.outdir, modelrootdir+'_lr_{:.3f}_wd_{:.3f}_expid_{:d}_lowshotn_{:d}_maxgen_{:d}.json'.format(
                                     params.lr, params.wd, params.experimentid, params.lowshotn, params.max_per_label))
-    with open(outpath, 'w') as f:
+    with open(outpath, 'w+') as f:
         json.dump(dict(lr=params.lr,wd=params.wd, expid=params.experimentid, lowshotn=params.lowshotn, accs=accs.tolist()),f)
 
     return results
