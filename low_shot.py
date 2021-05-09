@@ -45,10 +45,6 @@ class LowShotDataset:
 
 
         # novel class examples
-        print(len(novel_idx))
-        print(len(self.all_feats_dset))
-        print(novel_idx)
-        print(self.all_feats_dset)
         novel_feats = self.all_feats_dset[novel_idx,:]
         novel_labels = self.all_labels[novel_idx]
 
@@ -184,22 +180,23 @@ def main(params):
         f_.write(str(exp))
 
     novel_idx = np.array(exp)[:,:params.lowshotn]
-    with open('./exp.txt', 'w+') as f_:
-        f_.write(str(novel_idx))
+
     if params.testsetup:
         novel_classes = lowshotmeta['novel_classes_2']
         base_classes = lowshotmeta['base_classes_2']
     else:
         novel_classes = lowshotmeta['novel_classes_1']
         base_classes = lowshotmeta['base_classes_1']
-
-
+    with open('./novel_idx.txt', 'w+') as f_:
+        f_.write(str(novel_idx))
+    with open('./novel_classes.txt', 'w+') as f_:
+        f_.write(str(novel_classes))
     novel_idx = np.sort(novel_idx[novel_classes,:].reshape(-1))
 
     generator=None
     generator_fn=None
 
-    if params.generator_name!='':
+    if params.generator_name != '':
         generator_fn, generator = generation.get_generator(params.generator_name, params.generator_file)
 
 
