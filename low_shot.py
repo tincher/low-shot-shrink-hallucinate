@@ -45,6 +45,10 @@ class LowShotDataset:
 
 
         # novel class examples
+        with open('./novel_idx.txt', 'w+') as f_:
+            f_.write(str(novel_idx))
+        with open('./novel_classes.txt', 'w+') as f_:
+            f_.write(str(novel_classes))
         novel_feats = self.all_feats_dset[novel_idx,:]
         novel_labels = self.all_labels[novel_idx]
 
@@ -176,8 +180,6 @@ def main(params):
 
     with open(params.experimentpath.format(params.experimentid),'r') as f:
         exp = json.load(f)
-    with open('./exp.txt', 'w+') as f_:
-        f_.write(str(exp))
 
     novel_idx = np.array(exp)[:,:params.lowshotn]
 
@@ -187,10 +189,6 @@ def main(params):
     else:
         novel_classes = lowshotmeta['novel_classes_1']
         base_classes = lowshotmeta['base_classes_1']
-    with open('./novel_idx.txt', 'w+') as f_:
-        f_.write(str(novel_idx))
-    with open('./novel_classes.txt', 'w+') as f_:
-        f_.write(str(novel_classes))
     novel_idx = np.sort(novel_idx[novel_classes,:].reshape(-1))
 
     generator=None

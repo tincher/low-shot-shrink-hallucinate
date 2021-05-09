@@ -1,6 +1,7 @@
 #!/bin/bash
 dir="/home/user59/bachelor/neural_nets/augmentation/low-shot-shrink-hallucinate"
 cp $dir/../*.json $dir
+cp $dir/../../*.json $dir
 # save features
 mkdir -p features/ResNet10_sgm
 python3 $dir/save_features.py \
