@@ -15,6 +15,8 @@ import argparse
 import torch.utils.data.sampler
 import os
 import generation
+import pdb
+
 class SimpleHDF5Dataset:
     def __init__(self, file_handle):
         self.f = file_handle
@@ -49,11 +51,12 @@ class LowShotDataset:
             f_.write(str(novel_idx))
         with open('./novel_classes.txt', 'w+') as f_:
             f_.write(str(novel_classes))
+        pdb.set_trace()
         novel_feats = self.all_feats_dset[novel_idx,:]
         novel_labels = self.all_labels[novel_idx]
 
         # hallucinate if needed
-        if max_per_label>0:
+        if max_per_label > 0:
             novel_feats, novel_labels = generator_fn(novel_feats, novel_labels, generator, max_per_label)
         self.novel_feats = novel_feats
         self.novel_labels = novel_labels
