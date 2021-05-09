@@ -93,7 +93,7 @@ def training_loop(lowshot_dataset, num_classes, params, batchsize=1000, maxiters
     featdim = lowshot_dataset.featdim()
     model = nn.Linear(featdim, num_classes)
     model = model.cuda()
-    optimizer = torch.optim.SGD(model.parameters(), params.lr, momentum=1.momentum, dampening=params.momentum, weight_decay=params.wd)
+    optimizer = torch.optim.SGD(model.parameters(), params.lr, momentum=params.momentum, dampening=params.momentum, weight_decay=params.wd)
 
     loss_function = nn.CrossEntropyLoss()
     loss_function = loss_function.cuda()
